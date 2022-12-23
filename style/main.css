@@ -1,0 +1,194 @@
+@charset "UTF-8";
+/*=======================
+    MAIN START
+=======================*/
+#main{
+    background-color: #f4f4f4;
+}
+#main .container .main-promo-title{
+    padding-top:50px;
+    width:100%;
+    text-align:center;
+    font-size:26px;
+    color:#515151;
+}
+#main .container .main-banner{
+    margin-bottom:10px;
+}
+#main .container .main-banner img{
+    width:100%;
+}
+#main .container .main-banner img:hover{
+    opacity:.8;
+}
+#main .container .container-i{
+    width:1226px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:8%;
+    padding-right:8%;
+}
+
+#main .container .container-i .big:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 5px 30px 0 rgba(0,0,0,.2);
+    transition: .2s;
+}
+#main .container .container-i .big:last-child .goods-box{
+    background-image: linear-gradient(120deg,#ff910e,#ffd037);
+}
+#main .container .big{
+    margin-right:20px;
+    width:500px;
+    height:600px;
+    background-color: #fff;
+    text-align:center;
+    color:#333;
+}
+#main .container .big .big-title{
+    padding-top:50px;
+    font-size:36px;
+}
+#main .container .big .big-text{
+    padding-top:2px;
+    font-size:16px;
+}
+#main .container .big .big-price{
+    padding-top:10px;
+    font-size:16px;
+    color:#c00;
+}
+#main .container .big .big-img img{
+    width:450px;
+}
+
+#main .container  li{
+    width:249px;
+    height:370px;
+    text-align:center;
+    margin-right:6px;
+    margin-top:6px;
+    border:1px solid #eee;
+    background-color: #fff;
+}
+#main .container  li:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 2px 2px 2px #ddd;
+    transition:.3s;
+}
+#main .container  .img img{
+    width:250px;
+}
+#main .container .acoustics ul{
+    padding-left:5%;
+}
+#main .container  .container-i .pro-img{
+    overflow: hidden;
+}
+#main .container  .container-i .pro-img img{
+    width:300px;
+}
+#main .container  .container-i .promo-name{
+    top:190px;
+    left:26px;
+    color:#fff;
+    font-size:18px;
+}
+#main .container  .container-i .promo-title{
+    top:220px;
+    left:6px;
+    color:#fff;
+}
+#main .container  .container-i ul li:nth-child(5) .promo-title{
+    left:110px;
+}
+#main .container  .container-i ul li:nth-child(9) .promo-title{
+    left:92px;
+}
+#main .container  .container-i .promo-price{
+    top:240px;
+    left:90px;
+    font-size:20px;
+    color:#00fefb;
+}
+
+#main .community .head-portrait{
+    width:100%;
+    height:52px;
+    padding:12px 16px 20px 16px;
+}
+#main .community .head-frame{
+    overflow: hidden;
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    border:2px solid #fff;
+}
+#main .community .head-frame img{
+    width:50px;
+}
+#main .community .info-name{
+    top:186px;
+    left:90px;
+    color:#bdbdbd;
+}
+#main .community .community-title{
+    height:50px;
+    padding: 90px 15px 15px;
+    font-size:14px;
+    color:#838383;
+}
+#main .community .community-tips{
+    color:#c9c9c9;
+    text-align:left;
+    padding-left:12px;
+    margin-top:10px;
+}
+
+#main .flyme li{
+    overflow: hidden;
+    height:200px;
+}
+#main .flyme li:first-child{
+    width:500px;
+}
+#main .flyme li:first-child img{
+    width:100%;
+}
+#main .flyme li .flyme-img img{
+    width:100%;
+}
+#main .flyme li .flyme-title{
+    font-size:16px;
+    line-height:40px;
+}
+
+
+#main .video{
+   height:554px;
+}
+#main .video li{
+    overflow: hidden;
+    height:200px;
+}
+#main .video li:first-child .video-img img{
+    width:272px;
+}
+#main .video li .video-img img{
+    width:100%;
+}
+#main .video li .video-title{
+    font-size:14px;
+    line-height:50px;
+}
+#main .video li .video-i{
+    top:110px;
+    right:10px;
+}
+#main .video li .video-i .iconfont{
+    font-size:30px;
+    color:#fff;
+}
+/*=======================
+    MAIN END
+=======================*/

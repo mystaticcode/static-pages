@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/*==================
+    PROMO START
+====================*/
+#promo{
+    height:320px;
+    background-color: #fff;
+}
+#promo .promo-list{
+    padding-top:40px;
+    padding-bottom:40px;
+    margin-right:24px;
+    width:280px;
+    background-color: #fff;
+    text-align:center;
+}
+#promo .promo-list img{
+    width:250px;
+}
+
+/*==================
+    PROMO END
+====================*/
