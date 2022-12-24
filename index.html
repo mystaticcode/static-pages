@@ -1,140 +1,129 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5"/>
-    <title>404 - 找不到页面</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-size: 26px;
-            user-select: none
-        }
-
-        .container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: white;
-            color: black;
-            font-family: arial, sans-serif;
-            overflow: hidden;
-        }
-
-        .content {
-            position: relative;
-            width: 650px;
-            max-width: 100%;
-            margin: 30px;
-            background: white;
-            padding: 50px 80px 80px;
-            text-align: center;
-            z-index: 99;
-            box-shadow: -10px 10px 67px -12px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            animation: apparition 0.5s 0.1s cubic-bezier(0.39, 0.575, 0.28, 0.995) forwards;
-        }
-
-        .content p {
-            font-size: 1.3rem;
-            margin-top: 0;
-            margin-bottom: 2rem;
-            letter-spacing: 0.1rem;
-            color: #595959;
-        }
-
-        .content button {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.8rem 1rem;
-            border: 3px solid #595959;
-            background: transparent;
-            font-size: 1.11rem;
-            color: #595959;
-            text-decoration: none;
-            cursor: pointer;
-            font-weight: bolder;
-        }
-
-        .particle {
-            position: absolute;
-            display: block;
-            pointer-events: none;
-        }
-
-        @keyframes apparition {
-            from {
-                opacity: 0;
-                transform: translateY(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(200px);
-            }
-        }
-    </style>
+	<meta charset="UTF-8">
+	<title>雪夜背景</title>
 </head>
-<body>
-<main class="container">
-    <article class="content">
-        <h1>
-            404 找不到这个页面
-        </h1>
-        <p>
-            抱歉，您要访问的域名已经用作图床空间域名，
-            建议返回首页，或者看看我的其他网站
-        </p>
-        <p>
-            <a href="https://codeslive.top/">
-                <button>个人博客</button>
-            </a>
-            <a href="https://note.codeslive.top/">
-                <button>蚂蚁笔记</button>
-            </a>
-            <a href="https://mrdoc.codeslive.top/">
-                <button>觅思文档</button>
-            </a>
-            <a href="https://mkdocs.codeslive.top/">
-                <button>mkdocs</button>
-            </a>
-        </p>
-    </article>
-</main>
-<script>
-    // 给背景加点好玩的
-    for (let i = 0; i < 150; i++) {
-        const span = document.createElement('span');
-        span.className = 'particle';
-        span.style.top = random(0, 100) + '%';
-        span.style.left = random(0, 100) + '%';
-        span.style.fontSize = random(12, 42, true) + 'px';
-        span.style.filter = 'blur(' + random(0.1, 2.6) + 'px)';
-        span.style.animation = random(10, 60) + 's float infinite';
-        span.innerHTML = String.fromCharCode(random(33, 126, true));
-        span.style.color = 'rgb(' + random(0, 255, true) + ',' + random(0, 255, true) + ',' + random(0, 255, true) + ')';
-        document.querySelector('.container').appendChild(span);
-    }
-
-    function random(min, max, isInteger) {
-        const number = Math.random() * (max - min) + min;
-        return isInteger ? Math.floor(number) : number;
-    }
-</script>
+<body style="margin: 0">
+	<canvas id="cvs" style="background-color: #000;"></canvas>
 </body>
+<script>
+	const cvs = document.querySelector('#cvs')
+	const ctx = cvs.getContext('2d')
+	const {clientWidth:width, clientHeight:height} = document.documentElement
+	cvs.width = width
+	cvs.height = height
+	ctx.fillStyle = '#ffffff'
+	const bgColors = Array.from(new Array(400)).map(v => {
+		return {
+			x: Math.random() * width,
+			y: Math.random() * height,
+			step: Math.random() * 2.5 + 0.5
+		}
+	})
+
+	let colors = []
+	const sendText = (text, fontSize = 100, stepV = 40) => {
+		ctx.fillStyle = '#000000'
+		ctx.fillRect(0, 0, width, height)
+		ctx.font = `bold ${fontSize}px 微软雅黑`
+		ctx.fillStyle = '#ffffff'
+		ctx.textAlign = 'center'
+		ctx.textBaseline = 'middle'
+		ctx.fillText(text, width / 2, height / 2)
+		const data = ctx.getImageData(0, 0, width, height).data
+
+		let index = 0
+		let bl = 4
+		let useIndex = 0
+		for(let i=0;i<data.length;i+=4) {
+			const x = index % width
+			const y = Math.ceil(index / width)
+			if (x%bl === 0 && y%bl === 0 && data[i] === 255 &&data[i+1] === 255 &&data[i+2] === 255) {
+				const rx = Math.floor(Math.random() * fontSize) + width / 2 - fontSize / 2
+				const ry = Math.floor(Math.random() * fontSize) + height / 2 - fontSize / 2
+
+				const item = colors[useIndex]
+				if (item) {
+					colors[useIndex] = {
+						x,
+						y,
+						rx: item.x,
+						ry: item.y,
+						stepX: Math.abs(item.x - x) / stepV,
+						stepY: Math.abs(item.y - y) / stepV
+					}
+				} else {
+					colors[useIndex] = {
+						x,
+						y,
+						rx,
+						ry,
+						stepX: Math.abs(rx - x) / stepV,
+						stepY: Math.abs(ry - y) / stepV
+					}
+				}
+				useIndex++
+			}
+			index++
+		}
+		if (useIndex < colors.length) {
+			colors.splice(useIndex, colors.length - useIndex)
+		}
+	}
+	
+	const render = () => {
+		ctx.clearRect(0, 0, width, height)
+		ctx.beginPath()
+		colors.forEach(v => {
+			if (v.rx > v.x) {
+				v.rx -= v.stepX
+				if (v.rx < v.x) {
+					v.rx = v.x
+				}
+			} else if (v.rx < v.x) {
+				v.rx += v.stepX
+				if (v.rx > v.x) {
+					v.rx = v.x
+				}
+			}
+
+			if (v.ry > v.y) {
+				v.ry -= v.stepY
+				if (v.ry < v.y) {
+					v.ry = v.y
+				}
+			} else if (v.ry < v.y) {
+				v.ry += v.stepY
+				if (v.ry > v.y) {
+					v.ry = v.y
+				}
+			}
+			ctx.rect(v.rx, v.ry, 3, 3)
+		})
+		bgColors.forEach(v => {
+			v.y = v.y > height ? 0 : (v.y + v.step)
+			ctx.rect(v.x, v.y, 3, 3)
+		})
+		
+		ctx.fill()
+		requestAnimationFrame(render)
+	}
+	render()
+	const awaitSendText = async (txt, fontSize, stepV) => {
+		return new Promise(resolve => {
+			sendText(txt, fontSize, stepV)
+			colors.sort(v => Math.random() - 0.5)
+			setTimeout(() => resolve(), 2000 + (stepV > 40 ? 1000 : 0))
+		})
+	}
+	const run = async () => {
+		const text = `登高 - 杜甫，风急天高猿啸哀，渚清沙白鸟飞回，无边落木萧萧下，不尽长江滚滚来，万里悲秋常作客，百年多病独登台，艰难苦恨繁霜鬓，潦倒新停浊酒杯`.split('，')
+		for(let i=0;i<text.length;i++) {
+			await awaitSendText(text[i], 150, i === 0 ? 100 : 40)
+		}
+	}
+	run()
+	// 
+</script>
 </html>
